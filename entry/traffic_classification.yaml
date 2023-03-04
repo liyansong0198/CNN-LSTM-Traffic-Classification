@@ -1,0 +1,38 @@
+pcap_path:
+  new_pcap_path:  D:\PyProject\vocation\sequence_payload\data_work_dir # 放置处理好的 traffic 文件的路径之后的数据
+  npy_path: D:\PyProject\vocation\sequence_payload\npy_data
+  traffic_path: D:\PyProject\vocation\sequence_payload\traffic_data # 原始pcap流量
+
+preprocess:
+  packet_num: 4
+  byte_num: 256
+  seq_len: 64
+
+tool_path:
+  splitcap_path: ./tool/SplitCap.exe # splitcap 的路径, 用来将 pcap 分割为 session, 地址 https://www.netresec.com/?page=SplitCap
+
+train:
+  train_pay: D:\PyProject\vocation\sequence_payload\npy_data\train\payload.npy # 训练集 pcap 的地址
+  train_seq: D:\PyProject\vocation\sequence_payload\npy_data\train\ip_lengths.npy
+  train_label: D:\PyProject\vocation\sequence_payload\npy_data\train\label.npy # 训练集 label 的地址
+  test_pay: D:\PyProject\vocation\sequence_payload\npy_data\test\payload.npy # 测试集 pcap 的地址
+  test_seq: D:\PyProject\vocation\sequence_payload\npy_data\test\ip_lengths.npy
+  test_label: D:\PyProject\vocation\sequence_payload\npy_data\test\label.npy # 测试集 label 的地址
+  TRIMED_FILE_LEN: 1024 # 最后减裁文件的大小
+  IMAGE_WIDTH: 64 # 二维 CNN 训练时候的大小
+  BATCH_SIZE: 128
+  train_size: 0.8 # 训练集所占比例
+  epochs: 150 # 训练的轮数
+  lr: 0.001 # learning rate
+  hidden_size: 512
+  num_layers: 2
+  input_size: 1
+  Bi: True
+  model_dir: 'D:\PyProject\vocation\sequence_payload\checkpoint' # 模型保存的文件夹
+  model_name: cnn_and_lstm.pth # 模型的名称
+
+
+test:
+  evaluate: False # 如果是 True, 则不进行训练, 只进行评测
+  pretrained: False # 是否有训练好的模型
+  label2index: {'bilibili': 0, 'QQ': 1, 'qq邮箱': 2, 'qq音乐': 3, 'UC浏览器': 4, '今日头条': 5, '农业银行': 6, '小红书': 7, '工商银行': 8, '应用商店': 9, '微信': 10, '微博': 11, '招商银行': 12, '拼多多': 13, '支付宝': 14, '淘宝': 15, '王者荣耀': 16, '百度贴吧': 17, '知乎': 18, '美团': 19, '腾讯会议': 20, '菜鸟': 21, '迅雷': 22, '高德地图': 23}
